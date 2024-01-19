@@ -65,20 +65,20 @@ def TS2PWFTS(TimeSeries, npartitions):
 
   return FeaturesVector
 
-def PWFTSfeatures(TimeSeriesObservations, NumObs, NumSample, npartitions, type):
+def PWFTSfeatures(TimeSeriesObservations, NumObs, NumSample, npartitions, typeWindow):
   # GLOBAL
-  if type == 'Global' or type == 'Ensemble':
+  if typeWindow == 'Global' or typeWindow == 'Ensemble':
     X_features = np.zeros([NumObs,npartitions*(npartitions+1)])
     for i in range(NumObs):
       FeaturesVector = TS2PWFTS(TimeSeriesObservations[i], npartitions)
       X_features[i] =  FeaturesVector
 
-    if type == 'Ensemble':
+    if typeWindow == 'Ensemble':
         X_features_Global = np.copy(X_features)
         del X_features
 
   # LOCAL
-  if type == 'Local' or type == 'Ensemble':
+  if typeWindow == 'Local' or typeWindow == 'Ensemble':
     NumWindows = 4
     LengthWindows = NumSample / NumWindows
     X_features = np.zeros([NumObs,NumWindows*npartitions*(npartitions+1)])
@@ -88,12 +88,12 @@ def PWFTSfeatures(TimeSeriesObservations, NumObs, NumSample, npartitions, type):
         FeaturesVectorLocal = TS2PWFTS(TimeSeriesObservations[i, nwindow*int(LengthWindows):(nwindow+1)*int(LengthWindows)-1], npartitions)
         X_features[i, nwindow*npartitions*(npartitions+1):(nwindow+1)*npartitions*(npartitions+1)] = FeaturesVectorLocal
 
-    if type == 'Ensemble':
+    if typeWindow == 'Ensemble':
       X_features_Local = np.copy(X_features)
       del X_features
 
   # ENSEMBLE
-  if type == 'Ensemble':
+  if typeWindow == 'Ensemble':
     X_features = np.concatenate((X_features_Global, X_features_Local), axis=1)
 
   return X_features
