@@ -1,10 +1,8 @@
 A Fuzzy-Probabilistic Representation Learning Method for Time Series Classification
 
-Please cite as:
+Article under review
 
-@article{erazo-costa_etal_2024,
-  author  = {Erazo-Costa, Fabricio and Silva, Petrônio and Guimarães, Frederico},
-  title   = {A Fuzzy-Probabilistic Representation Learning Method for Time Series Classification},
-  journal = {},
-  year    = {},
-}
+Erazo-Costa, Fabricio
+Silva, Petrônio
+Guimarães, Frederico
+  
